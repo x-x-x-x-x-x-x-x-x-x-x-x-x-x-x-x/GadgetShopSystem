@@ -19,29 +19,35 @@ public void addCredit(int amount)
     {
         credit = credit + amount;
     }
-    else
-    {
-        System.out.println("Enter positive credit");
-    }
 }
 
-public void makeCall(String phoneNumber, int duration)
+public String makeCall(String phoneNumber, int duration)
 {
+    if(!phoneNumber.matches("07\\d{9}"))
+    {
+        return "Invalid UK phone number";
+    }
+
+    if(duration <= 0)
+    {
+        return "Enter valid duration";
+    }
+
     if(credit >= duration)
     {
-        System.out.println("Calling " + phoneNumber + " for " + duration + " minutes");
         credit = credit - duration;
+        return "Calling " + phoneNumber + " for " + duration + " minutes";
     }
     else
     {
-        System.out.println("Not enough credit");
+        return "Not enough credit";
     }
 }
 
-public void display()
+public String display()
 {
-    super.display();
-    System.out.println("Credit minutes: " + credit);
+    return super.display() +
+           "Credit minutes: " + credit + "\n";
 }
 
 }

@@ -33,12 +33,17 @@ public String getSize()
     return size;
 }
 
-public void display()
+public String display()
 {
-    System.out.println("Model: " + model);
-    System.out.println("Price: £" + price);
-    System.out.println("Weight: " + weight + "g");
-    System.out.println("Size: " + size);
+    return "Model: " + model +
+           "\nPrice: £" + price +
+           "\nWeight: " + weight + "g" +
+           "\nSize: " + size + "\n";
+}
+
+public void displayConsole()
+{
+    System.out.println(display());
 }
 
 }

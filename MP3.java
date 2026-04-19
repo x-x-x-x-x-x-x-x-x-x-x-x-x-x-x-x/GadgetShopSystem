@@ -13,28 +13,36 @@ public int getMemory()
     return memory;
 }
 
-public void downloadMusic(int size)
+public String downloadMusic(int size)
 {
+    if(size <= 0)
+    {
+        return "Enter valid download size";
+    }
+
     if(size <= memory)
     {
         memory = memory - size;
-        System.out.println("Music downloaded");
+        return "Music downloaded successfully";
     }
     else
     {
-        System.out.println("Not enough memory");
+        return "Not enough memory";
     }
 }
 
 public void deleteMusic(int size)
 {
-    memory = memory + size;
+    if(size > 0)
+    {
+        memory = memory + size;
+    }
 }
 
-public void display()
+public String display()
 {
-    super.display();
-    System.out.println("Available memory: " + memory + "MB");
+    return super.display() +
+           "Available memory: " + memory + "MB\n";
 }
 
 }
