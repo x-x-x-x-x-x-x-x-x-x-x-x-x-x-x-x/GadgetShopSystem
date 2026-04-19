@@ -12,17 +12,17 @@ private JTextField creditField, memoryField;
 private JTextField phoneField, durationField;
 private JTextField downloadField, displayField;
 
-private JButton addMobile, addMP3, clear, displayAll, makeCall, downloadMusic;
+private JButton addMobile, addMP3, clear, displayAll, makeCall, downloadMusic, remove;
 
 public GadgetShop()
 {
     gadgets = new ArrayList<>();
 
     setTitle("Gadget Shop");
-    setSize(500,400);
-    setLayout(new GridLayout(12,2));
+    setSize(550,450); // slightly bigger for better layout
+    setLayout(new GridLayout(13,2)); // increased rows
 
-    getContentPane().setBackground(Color.LIGHT_GRAY); // FIX GUI COLOUR
+    getContentPane().setBackground(Color.LIGHT_GRAY);
 
     modelField = new JTextField();
     priceField = new JTextField();
@@ -52,6 +52,7 @@ public GadgetShop()
     displayAll = new JButton("Display All");
     makeCall = new JButton("Make Call");
     downloadMusic = new JButton("Download Music");
+    remove = new JButton("Remove Gadget");
 
     add(addMobile);
     add(addMP3);
@@ -59,6 +60,7 @@ public GadgetShop()
     add(displayAll);
     add(makeCall);
     add(downloadMusic);
+    add(remove); // NEW BUTTON
 
     addMobile.addActionListener(this);
     addMP3.addActionListener(this);
@@ -66,6 +68,7 @@ public GadgetShop()
     displayAll.addActionListener(this);
     makeCall.addActionListener(this);
     downloadMusic.addActionListener(this);
+    remove.addActionListener(this); // NEW LISTENER
 
     setVisible(true);
 }
@@ -74,7 +77,6 @@ public void actionPerformed(ActionEvent e)
 {
     try
     {
-        // ADD MOBILE FIX
         if(e.getSource() == addMobile)
         {
             String model = modelField.getText();
@@ -96,7 +98,6 @@ public void actionPerformed(ActionEvent e)
             JOptionPane.showMessageDialog(this,"Mobile added successfully");
         }
 
-        // ADD MP3 FIX
         if(e.getSource() == addMP3)
         {
             String model = modelField.getText();
@@ -118,7 +119,6 @@ public void actionPerformed(ActionEvent e)
             JOptionPane.showMessageDialog(this,"MP3 added successfully");
         }
 
-        // DISPLAY ALL FIX
         if(e.getSource() == displayAll)
         {
             if(gadgets.size() == 0)
@@ -138,7 +138,6 @@ public void actionPerformed(ActionEvent e)
             JOptionPane.showMessageDialog(this, output);
         }
 
-        // CLEAR
         if(e.getSource() == clear)
         {
             modelField.setText("");
@@ -153,7 +152,6 @@ public void actionPerformed(ActionEvent e)
             displayField.setText("");
         }
 
-        // MAKE CALL FIX
         if(e.getSource() == makeCall)
         {
             int index = Integer.parseInt(displayField.getText());
@@ -178,7 +176,6 @@ public void actionPerformed(ActionEvent e)
             JOptionPane.showMessageDialog(this, result);
         }
 
-        // DOWNLOAD MUSIC FIX
         if(e.getSource() == downloadMusic)
         {
             int index = Integer.parseInt(displayField.getText());
@@ -200,6 +197,22 @@ public void actionPerformed(ActionEvent e)
 
             String result = mp.downloadMusic(size);
             JOptionPane.showMessageDialog(this, result);
+        }
+
+        // REMOVE FEATURE
+        if(e.getSource() == remove)
+        {
+            int index = Integer.parseInt(displayField.getText());
+
+            if(index < 0 || index >= gadgets.size())
+            {
+                JOptionPane.showMessageDialog(this,"Invalid display number");
+                return;
+            }
+
+            gadgets.remove(index);
+
+            JOptionPane.showMessageDialog(this,"Gadget removed successfully");
         }
     }
     catch(Exception ex)
